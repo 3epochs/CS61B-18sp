@@ -44,6 +44,11 @@ public class IntList {
         }
     }
 
+/*    public static void main(String[] args){
+        IntList orig = IntList.of(1, 2, 3);
+        dSquareList(orig);
+    }*/
+
     /**
      * Returns a list equal to L with all elements squared. Non-destructive.
      */
@@ -80,19 +85,74 @@ public class IntList {
      * *  elements of B.  May modify items of A. Don't use 'new'.
      */
 
-    public static IntList dcatenate(IntList A, IntList B) {
+
+    /**iteration*/
+/*    public static IntList dcatenate(IntList A, IntList B) {
         //TODO:  fill in method
-        return null;
+        IntList ptr = A;
+        while (ptr.rest != null){
+            ptr = ptr.rest;
+        }
+        ptr.rest = B;
+        return A;
+    }*/
+
+    /**recursion*/
+    public static IntList dcatenate(IntList A, IntList B) {
+        IntList res = A;
+        if(A.rest == null){
+            A.rest = B;
+            return A;
+        }
+        res.rest =  dcatenate(A.rest, B);
+        return res;
     }
+
 
     /**
      * Returns a list consisting of the elements of A followed by the
      * * elements of B.  May NOT modify items of A.  Use 'new'.
      */
-    public static IntList catenate(IntList A, IntList B) {
-        //TODO:  fill in method
-        return null;
+//    public static IntList catenate(IntList A, IntList B) {
+//        //TODO:  fill in method
+//        IntList res = new IntList(A.first, null);
+//        IntList ptr = res;
+//        A = A.rest;
+//        while (A != null) {
+//            ptr.rest = new IntList(A.first, null);
+//            A = A.rest;
+//            ptr = ptr.rest;
+//        }
+//
+//        while (B != null){
+//            ptr.rest = new IntList(B.first, null);
+//            B = B.rest;
+//            ptr = ptr.rest;
+//        }
+//        return res;
+//        }
+    /**recursive version*/
+    public static IntList catenate(IntList A, IntList B){
+        IntList res = buildList(A);
+        IntList ptr = res;
+        while (ptr.rest != null){
+            ptr = ptr.rest;
+        }
+        ptr.rest = buildList(B);
+        return res;
     }
+
+    /**Helper function to build a IntList from a IntList*/
+    private static IntList buildList(IntList A){
+        IntList listBuild;
+        if (A.rest == null){
+            return new IntList(A.first, null);
+        }
+        listBuild = new IntList(A.first, null);
+        listBuild.rest = buildList(A.rest);
+        return listBuild;
+    }
+
 
 
 
