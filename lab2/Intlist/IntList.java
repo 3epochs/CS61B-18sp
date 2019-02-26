@@ -11,16 +11,16 @@ public class IntList {
     /**
      * First element of list.
      */
-    public int first;
+    private int first;
     /**
      * Remaining elements of list.
      */
-    public IntList rest;
+    private IntList rest;
 
     /**
      * A List with first FIRST0 and rest REST0.
      */
-    public IntList(int first0, IntList rest0) {
+    private IntList(int first0, IntList rest0) {
         first = first0;
         rest = rest0;
     }
@@ -36,7 +36,7 @@ public class IntList {
     /**
      * Returns a list equal to L with all elements squared. Destructive.
      */
-    public static void dSquareList(IntList L) {
+    private static void dSquareList(IntList L) {
 
         while (L != null) {
             L.first = L.first * L.first;
@@ -132,7 +132,7 @@ public class IntList {
 //        return res;
 //        }
     /**recursive version*/
-    public static IntList catenate(IntList A, IntList B){
+    public static IntList catenate(IntList A, IntList B) {
         IntList res = buildList(A);
         IntList ptr = res;
         while (ptr.rest != null){
@@ -143,7 +143,7 @@ public class IntList {
     }
 
     /**Helper function to build a IntList from a IntList*/
-    private static IntList buildList(IntList A){
+    private static IntList buildList(IntList A) {
         IntList listBuild;
         if (A.rest == null){
             return new IntList(A.first, null);
