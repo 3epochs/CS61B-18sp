@@ -20,7 +20,7 @@ public class IntList {
     /**
      * A List with first FIRST0 and rest REST0.
      */
-    private IntList(int first0, IntList rest0) {
+    public IntList(int first0, IntList rest0) {
         first = first0;
         rest = rest0;
     }
@@ -36,7 +36,7 @@ public class IntList {
     /**
      * Returns a list equal to L with all elements squared. Destructive.
      */
-    private static void dSquareList(IntList L) {
+    public static void dSquareList(IntList L) {
 
         while (L != null) {
             L.first = L.first * L.first;
@@ -100,7 +100,7 @@ public class IntList {
     /**recursion*/
     public static IntList dcatenate(IntList A, IntList B) {
         IntList res = A;
-        if(A.rest == null){
+        if (A.rest == null) {
             A.rest = B;
             return A;
         }
@@ -135,7 +135,7 @@ public class IntList {
     public static IntList catenate(IntList A, IntList B) {
         IntList res = buildList(A);
         IntList ptr = res;
-        while (ptr.rest != null){
+        while (ptr.rest != null) {
             ptr = ptr.rest;
         }
         ptr.rest = buildList(B);
@@ -145,7 +145,7 @@ public class IntList {
     /**Helper function to build a IntList from a IntList*/
     private static IntList buildList(IntList A) {
         IntList listBuild;
-        if (A.rest == null){
+        if (A.rest == null) {
             return new IntList(A.first, null);
         }
         listBuild = new IntList(A.first, null);
@@ -153,6 +153,20 @@ public class IntList {
         return listBuild;
     }
 
+    /** reverse a int list. */
+    public static IntList reverse(IntList A) {
+        if (A == null || A.rest == null) {
+            return A;
+        }
+        IntList prev = null;
+        while (A != null) {
+            IntList tmp = A;
+            A = A.rest;
+            tmp.rest = prev;
+            prev = tmp;
+        }
+        return prev;
+    }
 
 
 
