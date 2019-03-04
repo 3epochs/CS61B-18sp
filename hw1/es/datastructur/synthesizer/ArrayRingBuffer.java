@@ -1,10 +1,6 @@
 package es.datastructur.synthesizer;
 import java.util.Iterator;
 
-//TODO: Make sure to that this class and all of its methods are public
-//TODO: Make sure to add the override tag for all overridden methods
-//TODO: Make sure to make this class implement BoundedQueue<T>
-
 public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
     /* Index for the next dequeue or peek. */
     private int first;
@@ -21,7 +17,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
     public ArrayRingBuffer(int capacity) {
         //  Create new array with capacity elements.
         //  first, last, and fillCount should all be set to 0.
-        rb =(T[]) new Object[capacity];
+        rb = (T[]) new Object[capacity];
         first = 0;
         last = 0;
         fillCount = 0;
@@ -36,7 +32,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
     public void enqueue(T x) {
         //  Enqueue the item. Don't forget to increase fillCount and update
         //  last.
-        if (isFull()) {
+        if (fillCount == capacity) {
             throw new RuntimeException("Ring buffer overflow");
         }
         // update last pointer
@@ -53,7 +49,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
     public T dequeue() {
         //  Dequeue the first item. Don't forget to decrease fillCount and
         //  update first.
-        if (isEmpty()) {
+        if (fillCount == 0) {
             throw new RuntimeException("Ring buffer underflow");
         }
         T tmp = rb[first];
@@ -69,15 +65,53 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
      * throw new RuntimeException("Ring buffer underflow").
      */
     public T peek() {
-        // TODO: Return the first item. None of your instance variables should
-        //       change.
-        if (isEmpty()) {
+        if (fillCount == 0) {
             throw new RuntimeException("Ring buffer underflow");
         }
         return rb[first];
     }
 
-    // TODO: When you get to part 4, implement the needed code to support
-    //       iteration and equals.
+    public Iterator<T> iterator() {
+        return new bufferIterator();
+    }
+
+    private class bufferIterator implements Iterator<T> {
+        private int count = 0;
+        @Override
+        public boolean hasNext() {
+            if (count == capacity()) {
+                return false;
+            }
+            return true;
+        }
+
+        @Override
+        public T next() {
+            count += 1;
+            return dequeue();
+        }
+    }
 }
-    // TODO: Remove all comments that say TODO when you're done.
+/*    public Iterator<T> iterator() {
+        return new bufferIterator();
+    }
+
+    private class bufferIterator implements Iterator<T> {
+        private int count = 0;
+
+        @Override
+        public boolean hasNext() {
+            if (count == capacity()) {
+                return false;
+            }
+            return true;
+        }
+
+        @Override
+        public T next() {
+            count += 1;
+            return dequeue();
+        }
+    }
+}*/
+
