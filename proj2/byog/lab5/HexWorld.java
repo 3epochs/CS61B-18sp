@@ -28,7 +28,7 @@ public class HexWorld {
                 tiles[i][j] = Tileset.NOTHING;
             }
         }
-    }
+}
 
     private static class Position {
         private int xPos;

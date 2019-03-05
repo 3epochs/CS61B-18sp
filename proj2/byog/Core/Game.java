@@ -1,13 +1,38 @@
 package byog.Core;
 
+import byog.SaveDemo.World;
 import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
+import byog.TileEngine.Tileset;
+import byog.lab5.HexWorld;
 
 public class Game {
-    TERenderer ter = new TERenderer();
     /* Feel free to change the width and height. */
     public static final int WIDTH = 80;
     public static final int HEIGHT = 30;
+    public static TERenderer ter = new TERenderer();
+    public Position player;
+    public Position door;
+    public static TETile[][] worldFrame;
+
+    public static void main(String[] args) {
+        ter.initialize(WIDTH, HEIGHT);
+        worldFrame = new TETile[WIDTH][HEIGHT];
+        long seed = 132723;
+        for (int x = 0; x < WIDTH; x += 1) {
+            for (int y = 0; y < HEIGHT; y += 1) {
+                worldFrame[x][y] = Tileset.NOTHING;
+            }
+        }
+
+        WorldGenerator worldGenerator = new WorldGenerator(seed);
+        TETile t = Tileset.FLOOR;
+        worldGenerator.addMaze(worldFrame, t);
+        t = Tileset.WALL;
+        worldGenerator.addWall(worldFrame, t);
+        ter.renderFrame(worldFrame);
+    }
+
 
     /**
      * Method used for playing a fresh game. The game should start from the main menu.

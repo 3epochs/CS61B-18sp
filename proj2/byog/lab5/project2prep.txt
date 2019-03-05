@@ -1,18 +1,26 @@
 Q: Can you think of an analogy between the process of tesselating hexagons and randomly generating a world using rooms and hallways? 
 What is the hexagon and what is the tesselation on the project 2 side?
 
-A:
+A: I can't at this moment.
 
 -----
 Q: If you were to start working on world generation, what kind of method would you think of writing first? 
 Think back to the lab and the process used to eventually get to tesselating hexagons.
 
-A:
-
+A: 1. write a generateEmptyWorld() method to generate the background;
+   2. write some random number generator and times by some factor to control its range;
+   3. use these random number to "draw" wall or hallways.
 -----
 Q: What distinguishes a hallway from a room? How are they similar?
 
-A:
+A: difference: for hallway, one attribute(HEIGHT or WIDTH) will be 1, while they can be arbitrary for hallway;
+   similarity: they should be smaller than the background and they are all rectangles.
+   Implementation : I will first write a generateRectangle(int width, int height) to generate a rectangle area that
+                    will be replaced by wall or hallway.
+                    then : if wall: use random function generate two numbers, first number times a factor to keep its size
+                                    and may need casting to int, use second random number to decide whether height=1 or width=1,
+                           if hallway: use random function generate two numbers as width and height
+                    call generateRectangle() and replace these area with set.WALL or set.HALLWAY
 
 -----
 Q: For tesselating hexagons, one of the hardest parts is figuring out where to place each hexagon/how to easily place hexagons on screen in an algorithmic way. 
